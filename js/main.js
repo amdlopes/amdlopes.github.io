@@ -156,14 +156,3 @@ function takePhoto() {
 function runStream() {
   setInterval(grabFrame, 200);
 }
-
-function getImageData(src, x, y, width) {
-  buffer = new Float32Array(width * width);
-  let j = 0;
-  for (let iy = y; iy < y + width; iy++) {
-    for (let ix = x; ix < x + width; ix++) {
-      buffer[j++] = src.data[ix + iy * IMAGE_WIDTH] / 255;
-    }
-  }
-  return buffer;
-};
