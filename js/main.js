@@ -34,6 +34,8 @@ var mediaStream;
 
 var grabFrameButton = document.querySelector('button#grabFrame');
 var takePhotoButton = document.querySelector('button#takePhoto');
+var takePhotoButton = document.querySelector('button#stream');
+
 
 var canvas = document.querySelector('canvas');
 var img = document.querySelector('img');
@@ -43,6 +45,7 @@ var zoomInput = document.querySelector('input#zoom');
 
 grabFrameButton.onclick = grabFrame;
 takePhotoButton.onclick = takePhoto;
+stream.onclick = runStream;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
@@ -54,7 +57,6 @@ navigator.mediaDevices.enumerateDevices()
     console.log('enumerateDevices() error: ', error);
   })
   .then(getStream)
-  .then(setInterval(grabFrame, 100));
 
 // From the list of media devices available, set up the camera source <select>,
 // then get a video stream from the default camera source.
@@ -145,4 +147,8 @@ function takePhoto() {
   }).catch(function(error) {
     console.log('takePhoto() error: ', error);
   });
+}
+
+function runStream() {
+  setInterval(grabFrame, 200);
 }
