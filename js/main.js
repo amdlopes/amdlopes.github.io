@@ -156,5 +156,5 @@ function takePhoto() {
 }
 
 function runStream() {
-  setInterval(grabFrame, 200);
+  setInterval(grabFrame, 50);
 }
