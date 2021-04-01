@@ -32,10 +32,7 @@ var constraints;
 var imageCapture;
 var mediaStream;
 
-var grabFrameButton = document.querySelector('button#grabFrame');
-var takePhotoButton = document.querySelector('button#takePhoto');
-var takePhotoButton = document.querySelector('button#stream');
-
+var streamButton = document.querySelector('button#stream');
 
 var canvas = document.querySelector('canvas');
 var img = document.querySelector('img');
@@ -43,9 +40,7 @@ var video = document.querySelector('video');
 var videoSelect = document.querySelector('select#videoSource');
 var zoomInput = document.querySelector('input#zoom');
 
-grabFrameButton.onclick = grabFrame;
-takePhotoButton.onclick = takePhoto;
-stream.onclick = runStream;
+streamButton.onclick = runStream;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
