@@ -155,8 +155,8 @@ function runStream() {
   setInterval(grabFrame, 200);
 }
 
-function getImageData = (src, x, y, width) => {
-  const buffer = new Float32Array(width * width);
+function getImageData(src, x, y, width) {
+  buffer = new Float32Array(width * width);
   let j = 0;
   for (let iy = y; iy < y + width; iy++) {
     for (let ix = x; ix < x + width; ix++) {
