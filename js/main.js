@@ -46,6 +46,8 @@ takePhotoButton.onclick = takePhoto;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
+setInterval(grabFrame, 100);
+
 // Get a list of available media input (and output) devices
 // then get a MediaStream for the currently selected input device
 navigator.mediaDevices.enumerateDevices()
