@@ -126,7 +126,7 @@ function grabFrame() {
     canvas.height = imageBitmap.height;
     const ctx = canvas.getContext('2d');
     canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
-    const imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     console.log('pixel:', data[100]);
     canvas.classList.remove('hidden');
