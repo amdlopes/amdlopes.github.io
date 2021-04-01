@@ -124,7 +124,9 @@ function grabFrame() {
     console.log('Grabbed frame:', imageBitmap);
     canvas.width = imageBitmap.width;
     canvas.height = imageBitmap.height;
-    canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
+    ctx = canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
+    imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    console.log('pixel:', imgData[100]);
     canvas.classList.remove('hidden');
   }).catch(function(error) {
     console.log('grabFrame() error: ', error);
@@ -152,3 +154,14 @@ function takePhoto() {
 function runStream() {
   setInterval(grabFrame, 200);
 }
+
+function getImageData = (src, x, y, width) => {
+  const buffer = new Float32Array(width * width);
+  let j = 0;
+  for (let iy = y; iy < y + width; iy++) {
+    for (let ix = x; ix < x + width; ix++) {
+      buffer[j++] = src.data[ix + iy * IMAGE_WIDTH] / 255;
+    }
+  }
+  return buffer;
+};
