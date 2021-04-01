@@ -46,8 +46,6 @@ takePhotoButton.onclick = takePhoto;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
-setInterval(grabFrame, 100);
-
 // Get a list of available media input (and output) devices
 // then get a MediaStream for the currently selected input device
 navigator.mediaDevices.enumerateDevices()
@@ -55,7 +53,8 @@ navigator.mediaDevices.enumerateDevices()
   .catch(error => {
     console.log('enumerateDevices() error: ', error);
   })
-  .then(getStream);
+  .then(getStream)
+  .then(setInterval(grabFrame, 100));
 
 // From the list of media devices available, set up the camera source <select>,
 // then get a video stream from the default camera source.
