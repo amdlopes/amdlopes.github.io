@@ -33,6 +33,7 @@ var imageCapture;
 var mediaStream;
 
 var streamButton = document.querySelector('button#stream');
+var constraintsButton = document.querySelector('button#constraints');
 
 var canvas = document.querySelector('canvas');
 var img = document.querySelector('img');
@@ -41,6 +42,7 @@ var videoSelect = document.querySelector('select#videoSource');
 var zoomInput = document.querySelector('input#zoom');
 
 streamButton.onclick = runStream;
+constraintsButton.onclick = printConstraints;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
@@ -141,6 +143,11 @@ function setZoom() {
   imageCapture.setOptions({
     zoom: zoomInput.value
   });
+}
+
+function printConstraints() {
+  var constraints = navigator.mediaDevices.getSupportedConstraints();
+  console.log("constrains = ", constraints);
 }
 
 // Get a Blob from the currently selected camera source and
