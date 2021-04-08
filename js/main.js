@@ -147,7 +147,7 @@ function setZoom() {
 
 function printConstraints() {
   var constraints = navigator.mediaDevices.getSupportedConstraints();
-  console.log("constrains = ", constraints);
+  document.getElementById('constraintsLabel').innerHTML = JSON.stringify(constraints);
 }
 
 // Get a Blob from the currently selected camera source and
