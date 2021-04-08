@@ -152,7 +152,7 @@ function setTorch() {
     advanced: [{torch: true}]
   }).catch(function(error) {
     console.log('setTorch() error: ', error);
-  }
+  });
 }
 
 function printConstraints() {
