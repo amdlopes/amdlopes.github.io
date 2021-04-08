@@ -97,7 +97,7 @@ function gotStream(stream) {
   video.srcObject = stream;
   //video.classList.remove('hidden');
   videoTrack = stream.getVideoTracks()[0];
-  imageCapture = new ImageCapture(track);
+  imageCapture = new ImageCapture(videoTrack);
   getCapabilities();
 }
 
