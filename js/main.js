@@ -31,9 +31,10 @@ if (!isSecureOrigin) {
 var constraints;
 var imageCapture;
 var mediaStream;
+var videoTrack;
 
 var streamButton = document.querySelector('button#stream');
-var constraintsButton = document.querySelector('button#constraints');
+var torchButton = document.querySelector('button#torch');
 
 var canvas = document.querySelector('canvas');
 var img = document.querySelector('img');
@@ -42,7 +43,7 @@ var videoSelect = document.querySelector('select#videoSource');
 var zoomInput = document.querySelector('input#zoom');
 
 streamButton.onclick = runStream;
-constraintsButton.onclick = printConstraints;
+torchButton.onclick = setTorch;
 videoSelect.onchange = getStream;
 zoomInput.oninput = setZoom;
 
@@ -95,7 +96,8 @@ function gotStream(stream) {
   mediaStream = stream;
   video.srcObject = stream;
   //video.classList.remove('hidden');
-  imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
+  videoTrack = stream.getVideoTracks()[0];
+  imageCapture = new ImageCapture(track);
   getCapabilities();
 }
 
@@ -143,6 +145,14 @@ function setZoom() {
   imageCapture.setOptions({
     zoom: zoomInput.value
   });
+}
+
+function setTorch() {
+  videoTrack.applyConstraints({
+    advanced: [{torch: true}]
+  }).catch(function(error) {
+    console.log('setTorch() error: ', error);
+  }
 }
 
 function printConstraints() {
