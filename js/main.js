@@ -100,7 +100,7 @@ function gotStream(stream) {
   //video.classList.remove('hidden');
   videoTrack = stream.getVideoTracks()[0];
   imageCapture = new ImageCapture(videoTrack);
-  getCapabilities();
+  //getCapabilities();
 }
 
 // Get the PhotoCapabilities for the currently selected camera source.
