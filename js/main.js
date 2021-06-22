@@ -30,7 +30,8 @@ var mediaStream;
 var videoTrack;
 
 var torchButton = document.getElementById('torch');
-var canvas = document.getElementById('canvas');
+var canvas_cam = document.getElementById('canvas_orig');
+var canvas_proc = document.getElementById('canvas_orig');
 var video = document.getElementById('video');
 
 torchButton.onclick = setTorch;
@@ -65,28 +66,30 @@ function gotStream(stream) {
   video.srcObject = stream;
   videoTrack = stream.getVideoTracks()[0];
   const videoSettings = stream.getVideoTracks()[0].getSettings();
-  canvas.width = videoSettings.width;
-  canvas.height = videoSettings.height;
-  console.log('gotStream() width: ', canvas.width);
-  console.log('gotStream() height: ', canvas.height);
-  document.getElementById('log').textContent += 'gotStream() resolution: '+ canvas.width + ',' + canvas.height;
+  canvas_orig.width = videoSettings.width;
+  canvas_orig.height = videoSettings.height;
+  console.log('gotStream() width: ', canvas_orig.width);
+  console.log('gotStream() height: ', canvas_orig.height);
+  document.getElementById('log').textContent += 'gotStream() resolution: '+ canvas_orig.width + ',' + canvas_orig.height;
 }
 
 function grabFrame() {
   try{
     console.log('grabFrame() new image');
 
-    canvas.getContext("2d").drawImage(video, 0, 0);
+    canvas_orig.getContext("2d").drawImage(video, 0, 0);
 
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const ctx = canvas_orig.getContext('2d');
+    const imageData = ctx.getImageData(0, 0, canvas_orig.width, canvas_orig.height);
     const data = imageData.data;
     for (var i = 0; i < data.length; i += 4) {
       data[i]     = 255 - data[i];     // red
       data[i + 1] = 255 - data[i + 1]; // green
       data[i + 2] = 255 - data[i + 2]; // blue
     }
-    ctx.putImageData(imageData, 0, 0);
+
+    const ctx_proc = canvas_proc.getContext('2d');
+    ctx_proc.putImageData(imageData, 0, 0);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
