@@ -34,8 +34,8 @@ var canvas = document.getElementById('canvas');
 var video = document.getElementById('video');
 
 torchButton.onclick = setTorch;
+window.screen.orientation.lock('landscape');
 window.onload = runStream();
-screen.orientation.lock('portrait');
 
 async function startCamera(){
   if (mediaStream) {
