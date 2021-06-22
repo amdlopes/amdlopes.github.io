@@ -40,12 +40,10 @@ var canvas = document.querySelector('canvas');
 var img = document.querySelector('img');
 var video = document.querySelector('video');
 var videoSelect = document.querySelector('select#videoSource');
-var zoomInput = document.querySelector('input#zoom');
 
 streamButton.onclick = runStream;
 torchButton.onclick = setTorch;
 videoSelect.onchange = getStream;
-zoomInput.oninput = setZoom;
 
 // Get a list of available media input (and output) devices
 // then get a MediaStream for the currently selected input device
@@ -53,6 +51,7 @@ navigator.mediaDevices.enumerateDevices()
   .then(gotDevices)
   .catch(error => {
     console.log('enumerateDevices() error: ', error);
+    document.getElementById('log').textContent += 'enumerateDevices() error: ' + error;
   })
   .then(getStream)
 
@@ -62,6 +61,7 @@ function gotDevices(deviceInfos) {
   for (var i = 0; i !== deviceInfos.length; ++i) {
     var deviceInfo = deviceInfos[i];
     console.log('Found media input or output device: ', deviceInfo);
+    document.getElementById('log').textContent += 'Found media input or output device: ' + deviceInfo;
     var option = document.createElement('option');
     option.value = deviceInfo.deviceId;
     if (deviceInfo.kind === 'videoinput') {
@@ -86,6 +86,7 @@ function getStream() {
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
+      document.getElementById('log').textContent += 'getUserMedia error: '+ error;
     });
 }
 
@@ -93,6 +94,7 @@ function getStream() {
 // create an ImageCapture object, using the video from the stream.
 function gotStream(stream) {
   console.log('getUserMedia() got stream: ', stream);
+  document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream;
   mediaStream = stream;
   video.srcObject = stream;
   //video.classList.remove('hidden');
@@ -105,14 +107,10 @@ function gotStream(stream) {
 function getCapabilities() {
   imageCapture.getPhotoCapabilities().then(function(capabilities) {
     console.log('Camera capabilities:', capabilities);
-    if (capabilities.zoom.max > 0) {
-      zoomInput.min = capabilities.zoom.min;
-      zoomInput.max = capabilities.zoom.max;
-      zoomInput.value = capabilities.zoom.current;
-      zoomInput.classList.remove('hidden');
-    }
+    document.getElementById('log').textContent += 'Camera capabilities:' + capabilities;
   }).catch(function(error) {
     console.log('getCapabilities() error: ', error);
+    document.getElementById('log').textContent += 'getCapabilities() error: '+ error;
   });
 }
 
@@ -121,6 +119,7 @@ function getCapabilities() {
 function grabFrame() {
   imageCapture.grabFrame().then(function(imageBitmap) {
     console.log('Grabbed frame:', imageBitmap);
+    document.getElementById('log').textContent += 'Grabbed frame:' + imageBitmap;
     canvas.width = imageBitmap.width;
     canvas.height = imageBitmap.height;
     canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
@@ -138,12 +137,7 @@ function grabFrame() {
     canvas.classList.remove('hidden');
   }).catch(function(error) {
     console.log('grabFrame() error: ', error);
-  });
-}
-
-function setZoom() {
-  imageCapture.setOptions({
-    zoom: zoomInput.value
+    document.getElementById('log').textContent += 'grabFrame() error: '+ error;
   });
 }
 
@@ -152,24 +146,13 @@ function setTorch() {
     advanced: [{torch: true}]
   }).catch(function(error) {
     console.log('setTorch() error: ', error);
+    document.getElementById('log').textContent += 'setTorch() error: '+ error;
   });
 }
 
 function printConstraints() {
   var constraints = navigator.mediaDevices.getSupportedConstraints();
   document.getElementById('constraintsLabel').innerHTML = JSON.stringify(constraints);
-}
-
-// Get a Blob from the currently selected camera source and
-// display this with an img element.
-function takePhoto() {
-  imageCapture.takePhoto().then(function(blob) {
-    console.log('Took photo:', blob);
-    img.classList.remove('hidden');
-    img.src = URL.createObjectURL(blob);
-  }).catch(function(error) {
-    console.log('takePhoto() error: ', error);
-  });
 }
 
 function runStream() {
