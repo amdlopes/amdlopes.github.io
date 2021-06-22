@@ -89,9 +89,6 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
-    ctx_proc.save();
-    ctx_proc.translate(50,0);
-    // ctx_proc.rotate(Math.PI/2);
     ctx_proc.fillRect(0, 0, 100, 50);
     // ctx_proc.putImageData(imageData, 0, 0);
 
@@ -112,5 +109,7 @@ function setTorch() {
 
 async function runStream() {
   await startCamera();
+  const ctx_proc = canvas_proc.getContext('2d');
+  ctx_proc.translate(50,0);
   setInterval(grabFrame, 50);
 }
