@@ -58,8 +58,6 @@ async function startCamera(){
     });
 }
 
-// Display the stream from the currently selected camera source, and then
-// create an ImageCapture object, using the video from the stream.
 function gotStream(stream) {
   console.log('getUserMedia() got stream: ', stream);
   document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream;
@@ -74,10 +72,10 @@ function gotStream(stream) {
   document.getElementById('log').textContent += 'gotStream() resolution: '+ canvas.width + ',' + canvas.height;
 }
 
-// Get an ImageBitmap from the currently selected camera source and
-// display this with a canvas element.
 function grabFrame() {
   try{
+    console.log('grabFrame() new image');
+
     canvas.getContext("2d").drawImage(video, 0, 0);
 
     const ctx = canvas.getContext('2d');
@@ -90,7 +88,6 @@ function grabFrame() {
     }
     ctx.putImageData(imageData, 0, 0);
 
-    canvas.classList.remove('hidden');
   } catch(error) {
     console.log('grabFrame() error: ', error);
     document.getElementById('log').textContent += 'grabFrame() error: '+ error;
