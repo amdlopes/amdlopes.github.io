@@ -31,7 +31,7 @@ var videoTrack;
 
 var torchButton = document.getElementById('torch');
 var canvas_cam = document.getElementById('canvas_orig');
-var canvas_proc = document.getElementById('canvas_orig');
+var canvas_proc = document.getElementById('canvas_proc');
 var video = document.getElementById('video');
 
 torchButton.onclick = setTorch;
