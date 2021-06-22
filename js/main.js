@@ -89,7 +89,7 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
-    ctx_proc.rotate(20*Math.PI);
+    ctx_proc.rotate(90*Math.PI);
     ctx_proc.fillRect(50, 20, 100, 50);
     // ctx_proc.putImageData(imageData, 0, 0);
 
