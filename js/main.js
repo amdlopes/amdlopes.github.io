@@ -82,7 +82,7 @@ function getStream() {
   constraints = {
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
-  navigator.mediaDevices.getUserMedia(constraints)
+  await navigator.mediaDevices.getUserMedia(constraints)
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
