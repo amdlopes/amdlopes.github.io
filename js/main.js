@@ -16,9 +16,6 @@ limitations under the License.
 
 'use strict';
 
-// This code is adapted from
-// https://cdn.rawgit.com/Miguelao/demos/master/imagecapture.html
-
 // window.isSecureContext could be used for Chrome
 var isSecureOrigin = location.protocol === 'https:' ||
 location.host === 'localhost';
@@ -37,7 +34,6 @@ var streamButton = document.querySelector('button#stream');
 var torchButton = document.querySelector('button#torch');
 
 var canvas = document.querySelector('canvas');
-var img = document.querySelector('img');
 var video = document.querySelector('video');
 var videoSelect = document.querySelector('select#videoSource');
 
@@ -97,32 +93,17 @@ function gotStream(stream) {
   document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream + '\n';
   mediaStream = stream;
   video.srcObject = stream;
-  //video.classList.remove('hidden');
   videoTrack = stream.getVideoTracks()[0];
-  imageCapture = new ImageCapture(videoTrack);
-  getCapabilities();
-}
-
-// Get the PhotoCapabilities for the currently selected camera source.
-function getCapabilities() {
-  imageCapture.getPhotoCapabilities().then(function(capabilities) {
-    console.log('Camera capabilities:', capabilities);
-    document.getElementById('log').textContent += 'Camera capabilities:' + capabilities + '\n';
-  }).catch(function(error) {
-    console.log('getCapabilities() error: ', error);
-    document.getElementById('log').textContent += 'getCapabilities() error: '+ error + '\n';
-  });
+  const videoSettings = stream.getVideoTracks()[0].getSettings();
+  canvas.width = videoSettings.width;
+  canvas.height = videoSettings.height;
 }
 
 // Get an ImageBitmap from the currently selected camera source and
 // display this with a canvas element.
 function grabFrame() {
-  imageCapture.grabFrame().then(function(imageBitmap) {
-    console.log('Grabbed frame:', imageBitmap);
-    document.getElementById('log').textContent += 'Grabbed frame:' + imageBitmap + '\n';
-    canvas.width = imageBitmap.width;
-    canvas.height = imageBitmap.height;
-    canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
+  try{
+    canvas.getContext("2d").drawImage(video, 0, 0);
 
     const ctx = canvas.getContext('2d');
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
