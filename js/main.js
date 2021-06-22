@@ -116,10 +116,10 @@ function grabFrame() {
     ctx.putImageData(imageData, 0, 0);
 
     canvas.classList.remove('hidden');
-  }).catch(function(error) {
+  }.catch(error) {
     console.log('grabFrame() error: ', error);
     document.getElementById('log').textContent += 'grabFrame() error: '+ error + '\n';
-  });
+  };
 }
 
 function setTorch() {
