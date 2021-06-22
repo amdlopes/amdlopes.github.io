@@ -89,7 +89,9 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
-    ctx_proc.putImageData(imageData, 0, 0);
+    const image_bmp = createImageBitmap(imageData);
+    canvas_proc.drawImage(image_bmp,0,0);
+    // ctx_proc.putImageData(imageData, 0, 0);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
