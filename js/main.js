@@ -116,10 +116,10 @@ function grabFrame() {
     ctx.putImageData(imageData, 0, 0);
 
     canvas.classList.remove('hidden');
-  }.catch(error) {
+  } catch(error) {
     console.log('grabFrame() error: ', error);
     document.getElementById('log').textContent += 'grabFrame() error: '+ error + '\n';
-  }.finally{
+  } finally{
     console.log('grabFrame done');
   };
 }
