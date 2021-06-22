@@ -72,7 +72,7 @@ function gotDevices(deviceInfos) {
 }
 
 // Get a video stream from the currently selected camera source.
-function getStream() {
+async function getStream() {
   if (mediaStream) {
     mediaStream.getTracks().forEach(track => {
       track.stop();
