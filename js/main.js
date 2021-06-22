@@ -68,7 +68,7 @@ function gotDevices(deviceInfos) {
 }
 
 // Get a video stream from the currently selected camera source.
-async function getStream() {
+function getStream() {
   if (mediaStream) {
     mediaStream.getTracks().forEach(track => {
       track.stop();
@@ -78,7 +78,7 @@ async function getStream() {
   constraints = {
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
-  await navigator.mediaDevices.getUserMedia(constraints)
+  navigator.mediaDevices.getUserMedia(constraints)
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
