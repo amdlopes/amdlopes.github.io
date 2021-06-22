@@ -103,7 +103,7 @@ function setTorch() {
   });
 }
 
-function runStream() {
+async function runStream() {
   await startCamera();
   setInterval(grabFrame, 50);
 }
