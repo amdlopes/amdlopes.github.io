@@ -45,7 +45,9 @@ async function startCamera(){
   constraints = {
     audio: false,
     video: {
-      facingMode: "environment"
+      facingMode: "environment",
+      width: { ideal: 1280 },
+      height: { ideal: 720 }
     }
   };
   await navigator.mediaDevices.getUserMedia(constraints)
