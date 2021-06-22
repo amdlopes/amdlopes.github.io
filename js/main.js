@@ -35,6 +35,7 @@ var video = document.getElementById('video');
 
 torchButton.onclick = setTorch;
 window.onload = runStream();
+screen.orientation.lock('portrait');
 
 async function startCamera(){
   if (mediaStream) {
