@@ -89,8 +89,10 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
+    ctx_proc.save();
+    ctx_proc.translate(canvas_orig.width,0);
     ctx_proc.rotate(90*Math.PI);
-    ctx_proc.fillRect(50, 20, 100, 50);
+    ctx_proc.fillRect(1, 1, 100, 50);
     // ctx_proc.putImageData(imageData, 0, 0);
 
   } catch(error) {
