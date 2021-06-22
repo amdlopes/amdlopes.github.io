@@ -119,6 +119,8 @@ function grabFrame() {
   }.catch(error) {
     console.log('grabFrame() error: ', error);
     document.getElementById('log').textContent += 'grabFrame() error: '+ error + '\n';
+  }.finally{
+    console.log('grabFrame done');
   };
 }
 
