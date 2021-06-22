@@ -51,7 +51,7 @@ navigator.mediaDevices.enumerateDevices()
   .then(gotDevices)
   .catch(error => {
     console.log('enumerateDevices() error: ', error);
-    document.getElementById('log').textContent += 'enumerateDevices() error: ' + error;
+    document.getElementById('log').textContent += 'enumerateDevices() error: ' + error + '\n';
   })
   .then(getStream)
 
@@ -61,7 +61,7 @@ function gotDevices(deviceInfos) {
   for (var i = 0; i !== deviceInfos.length; ++i) {
     var deviceInfo = deviceInfos[i];
     console.log('Found media input or output device: ', deviceInfo);
-    document.getElementById('log').textContent += 'Found media input or output device: ' + deviceInfo;
+    document.getElementById('log').textContent += 'Found media input or output device: ' + deviceInfo + '\n';
     var option = document.createElement('option');
     option.value = deviceInfo.deviceId;
     if (deviceInfo.kind === 'videoinput') {
@@ -86,7 +86,7 @@ function getStream() {
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
-      document.getElementById('log').textContent += 'getUserMedia error: '+ error;
+      document.getElementById('log').textContent += 'getUserMedia error: '+ error + '\n';
     });
 }
 
@@ -94,7 +94,7 @@ function getStream() {
 // create an ImageCapture object, using the video from the stream.
 function gotStream(stream) {
   console.log('getUserMedia() got stream: ', stream);
-  document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream;
+  document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream + '\n';
   mediaStream = stream;
   video.srcObject = stream;
   //video.classList.remove('hidden');
@@ -107,10 +107,10 @@ function gotStream(stream) {
 function getCapabilities() {
   imageCapture.getPhotoCapabilities().then(function(capabilities) {
     console.log('Camera capabilities:', capabilities);
-    document.getElementById('log').textContent += 'Camera capabilities:' + capabilities;
+    document.getElementById('log').textContent += 'Camera capabilities:' + capabilities + '\n';
   }).catch(function(error) {
     console.log('getCapabilities() error: ', error);
-    document.getElementById('log').textContent += 'getCapabilities() error: '+ error;
+    document.getElementById('log').textContent += 'getCapabilities() error: '+ error + '\n';
   });
 }
 
@@ -119,7 +119,7 @@ function getCapabilities() {
 function grabFrame() {
   imageCapture.grabFrame().then(function(imageBitmap) {
     console.log('Grabbed frame:', imageBitmap);
-    document.getElementById('log').textContent += 'Grabbed frame:' + imageBitmap;
+    document.getElementById('log').textContent += 'Grabbed frame:' + imageBitmap + '\n';
     canvas.width = imageBitmap.width;
     canvas.height = imageBitmap.height;
     canvas.getContext('2d').drawImage(imageBitmap, 0, 0);
@@ -137,7 +137,7 @@ function grabFrame() {
     canvas.classList.remove('hidden');
   }).catch(function(error) {
     console.log('grabFrame() error: ', error);
-    document.getElementById('log').textContent += 'grabFrame() error: '+ error;
+    document.getElementById('log').textContent += 'grabFrame() error: '+ error + '\n';
   });
 }
 
@@ -146,7 +146,7 @@ function setTorch() {
     advanced: [{torch: true}]
   }).catch(function(error) {
     console.log('setTorch() error: ', error);
-    document.getElementById('log').textContent += 'setTorch() error: '+ error;
+    document.getElementById('log').textContent += 'setTorch() error: '+ error + '\n';
   });
 }
 
