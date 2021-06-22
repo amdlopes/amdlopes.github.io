@@ -110,6 +110,6 @@ function setTorch() {
 async function runStream() {
   await startCamera();
   const ctx_proc = canvas_proc.getContext('2d');
-  ctx_proc.translate(50,0);
+  ctx_proc.setTransform(-1,0,0,1,canvas_proc.width,0);
   setInterval(grabFrame, 50);
 }
