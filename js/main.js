@@ -54,7 +54,7 @@ async function startCamera(){
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
-      document.getElementById('log').textContent += 'getUserMedia error: '+ error + '\n';
+      document.getElementById('log').textContent += 'getUserMedia error: '+ error;
     });
 }
 
@@ -62,13 +62,16 @@ async function startCamera(){
 // create an ImageCapture object, using the video from the stream.
 function gotStream(stream) {
   console.log('getUserMedia() got stream: ', stream);
-  document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream + '\n';
+  document.getElementById('log').textContent += 'getUserMedia() got stream: '+ stream;
   mediaStream = stream;
   video.srcObject = stream;
   videoTrack = stream.getVideoTracks()[0];
   const videoSettings = stream.getVideoTracks()[0].getSettings();
   canvas.width = videoSettings.width;
   canvas.height = videoSettings.height;
+  console.log('gotStream() width: ', canvas.width);
+  console.log('gotStream() height: ', canvas.height);
+  document.getElementById('log').textContent += 'gotStream() resolution: '+ canvas.width + ',' + canvas.height;
 }
 
 // Get an ImageBitmap from the currently selected camera source and
@@ -90,7 +93,7 @@ function grabFrame() {
     canvas.classList.remove('hidden');
   } catch(error) {
     console.log('grabFrame() error: ', error);
-    document.getElementById('log').textContent += 'grabFrame() error: '+ error + '\n';
+    document.getElementById('log').textContent += 'grabFrame() error: '+ error;
   }
 }
 
@@ -99,7 +102,7 @@ function setTorch() {
     advanced: [{torch: true}]
   }).catch(function(error) {
     console.log('setTorch() error: ', error);
-    document.getElementById('log').textContent += 'setTorch() error: '+ error + '\n';
+    document.getElementById('log').textContent += 'setTorch() error: '+ error;
   });
 }
 
