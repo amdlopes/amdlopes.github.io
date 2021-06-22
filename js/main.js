@@ -26,59 +26,29 @@ if (!isSecureOrigin) {
 }
 
 var constraints;
-var imageCapture;
 var mediaStream;
 var videoTrack;
 
-var streamButton = document.querySelector('button#stream');
-var torchButton = document.querySelector('button#torch');
+var torchButton = document.getElementById('torch');
+var canvas = document.getElementById('canvas');
+var video = document.getElementById('video');
 
-var canvas = document.querySelector('canvas');
-var video = document.querySelector('video');
-var videoSelect = document.querySelector('select#videoSource');
-
-streamButton.onclick = runStream;
 torchButton.onclick = setTorch;
-videoSelect.onchange = getStream;
+window.onload = runStream();
 
-// Get a list of available media input (and output) devices
-// then get a MediaStream for the currently selected input device
-navigator.mediaDevices.enumerateDevices()
-  .then(gotDevices)
-  .catch(error => {
-    console.log('enumerateDevices() error: ', error);
-    document.getElementById('log').textContent += 'enumerateDevices() error: ' + error + '\n';
-  })
-  .then(getStream)
-
-// From the list of media devices available, set up the camera source <select>,
-// then get a video stream from the default camera source.
-function gotDevices(deviceInfos) {
-  for (var i = 0; i !== deviceInfos.length; ++i) {
-    var deviceInfo = deviceInfos[i];
-    console.log('Found media input or output device: ', deviceInfo);
-    document.getElementById('log').textContent += 'Found media input or output device: ' + deviceInfo + '\n';
-    var option = document.createElement('option');
-    option.value = deviceInfo.deviceId;
-    if (deviceInfo.kind === 'videoinput') {
-      option.text = deviceInfo.label || 'Camera ' + (videoSelect.length + 1);
-      videoSelect.appendChild(option);
-    }
-  }
-}
-
-// Get a video stream from the currently selected camera source.
-function getStream() {
+async function startCamera(){
   if (mediaStream) {
     mediaStream.getTracks().forEach(track => {
       track.stop();
     });
   }
-  var videoSource = videoSelect.value;
   constraints = {
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+    audio: false,
+    video: {
+      facingMode: "environment"
+    }
   };
-  navigator.mediaDevices.getUserMedia(constraints)
+  await navigator.mediaDevices.getUserMedia(constraints)
     .then(gotStream)
     .catch(error => {
       console.log('getUserMedia error: ', error);
@@ -133,11 +103,7 @@ function setTorch() {
   });
 }
 
-function printConstraints() {
-  var constraints = navigator.mediaDevices.getSupportedConstraints();
-  document.getElementById('constraintsLabel').innerHTML = JSON.stringify(constraints);
-}
-
 function runStream() {
+  await startCamera();
   setInterval(grabFrame, 50);
 }
