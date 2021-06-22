@@ -89,8 +89,7 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
-    ctx_proc.fillRect(0, 0, 100, 50);
-    // ctx_proc.putImageData(imageData, 0, 0);
+    ctx_proc.putImageData(imageData, 0, 0);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
