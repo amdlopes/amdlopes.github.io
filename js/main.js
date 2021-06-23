@@ -90,7 +90,7 @@ function grabFrame() {
 
     const ctx_proc = canvas_proc.getContext('2d');
     createImageBitmap(imageData).then(img => {
-      ctx_proc.drawImage(img,-canvas_proc.width/2,-canvas_proc.height/2,canvas_proc.width,canvas_proc.height);
+      ctx_proc.drawImage(img,0,0,canvas_proc.width,canvas_proc.height);
     });
 
     // ctx_proc.putImageData(imageData, 0, 0);
