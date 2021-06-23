@@ -73,7 +73,7 @@ function grabFrame() {
     console.log('grabFrame() new image');
 
     // canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
-    canvas_orig.getContext("2d").drawImage(video,-canvas_orig.height/2,-canvas_orig.width/2,canvas_orig.height,canvas_orig.width);
+    canvas_orig.getContext("2d").drawImage(video,0,0,canvas_orig.width,canvas_orig.height);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
@@ -93,7 +93,6 @@ function setTorch() {
 async function runStream() {
   await startCamera();
   const ctx = canvas_orig.getContext('2d');
-  ctx.translate(canvas_orig.width/2,canvas_orig.height/2);
-  ctx.rotate(Math.PI/2);
+  ctx.setTransform(-1,0,0,1,canvas_orig.width,0);
   setInterval(grabFrame, 50);
 }
