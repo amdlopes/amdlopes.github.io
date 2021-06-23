@@ -31,7 +31,6 @@ var videoTrack;
 
 var torchButton = document.getElementById('torch');
 var canvas_cam = document.getElementById('canvas_orig');
-var canvas_proc = document.getElementById('canvas_proc');
 var video = document.getElementById('video');
 
 torchButton.onclick = setTorch;
@@ -73,22 +72,8 @@ function grabFrame() {
   try{
     console.log('grabFrame() new image');
 
-    canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
-
-    const ctx = canvas_orig.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas_orig.width, canvas_orig.height);
-    const data = imageData.data;
-    for (var i = 0; i < data.length; i += 4) {
-      data[i]     = 255 - data[i];     // red
-      data[i + 1] = 255 - data[i + 1]; // green
-      data[i + 2] = 255 - data[i + 2]; // blue
-    }
-
-    const ctx_proc = canvas_proc.getContext('2d');
-    // createImageBitmap(imageData).then(img => {
-    //   ctx_proc.drawImage(img,-canvas_proc.height/2,-canvas_proc.width/2,canvas_proc.height,canvas_proc.width);
-    // });
-    ctx_proc.putImageData(imageData, 0, 0,0,0,canvas_proc.width,canvas_proc.height);
+    // canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
+    ctx_proc.drawImage(video,-canvas_orig.height/2,-canvas_orig.width/2,canvas_orig.height,canvas_orig.width);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
@@ -107,8 +92,8 @@ function setTorch() {
 
 async function runStream() {
   await startCamera();
-  // const ctx_proc = canvas_proc.getContext('2d');
-  // ctx_proc.translate(canvas_proc.width/2,canvas_proc.height/2);
-  // ctx_proc.rotate(Math.PI/2);
+  const ctx = canvas_orig.getContext('2d');
+  ctx.translate(canvas_orig.width/2,canvas_orig.height/2);
+  ctx.rotate(Math.PI/2);
   setInterval(grabFrame, 50);
 }
