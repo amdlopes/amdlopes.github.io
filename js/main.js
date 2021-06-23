@@ -66,6 +66,8 @@ function gotStream(stream) {
   videoTrack = stream.getVideoTracks()[0];
   const videoSettings = stream.getVideoTracks()[0].getSettings();
   document.getElementById('log').textContent += 'gotStream() resolution: '+ videoSettings.width + ',' + videoSettings.height;
+  canvas_orig.width = window.innerWidth;
+  canvas_orig.height = window.innerHeight;
 }
 
 function grabFrame() {
@@ -92,7 +94,5 @@ function setTorch() {
 
 async function runStream() {
   await startCamera();
-  const ctx = canvas_orig.getContext('2d');
-  ctx.setTransform(-1,0,0,1,canvas_orig.width,0);
   setInterval(grabFrame, 50);
 }
