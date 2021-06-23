@@ -73,7 +73,7 @@ function grabFrame() {
     console.log('grabFrame() new image');
 
     // canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
-    ctx_proc.drawImage(video,-canvas_orig.height/2,-canvas_orig.width/2,canvas_orig.height,canvas_orig.width);
+    canvas_orig.getContext("2d").drawImage(video,-canvas_orig.height/2,-canvas_orig.width/2,canvas_orig.height,canvas_orig.width);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
