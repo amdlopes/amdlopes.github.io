@@ -89,11 +89,10 @@ function grabFrame() {
     }
 
     const ctx_proc = canvas_proc.getContext('2d');
-    createImageBitmap(imageData).then(img => {
-      ctx_proc.drawImage(img,-canvas_proc.height/2,-canvas_proc.width/2,canvas_proc.height,canvas_proc.width);
-    });
-
-    // ctx_proc.putImageData(imageData, 0, 0);
+    // createImageBitmap(imageData).then(img => {
+    //   ctx_proc.drawImage(img,-canvas_proc.height/2,-canvas_proc.width/2,canvas_proc.height,canvas_proc.width);
+    // });
+    ctx_proc.putImageData(imageData, 0, 0);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
@@ -112,8 +111,8 @@ function setTorch() {
 
 async function runStream() {
   await startCamera();
-  const ctx_proc = canvas_proc.getContext('2d');
-  ctx_proc.translate(canvas_proc.width/2,canvas_proc.height/2);
-  ctx_proc.rotate(Math.PI/2);
+  // const ctx_proc = canvas_proc.getContext('2d');
+  // ctx_proc.translate(canvas_proc.width/2,canvas_proc.height/2);
+  // ctx_proc.rotate(Math.PI/2);
   setInterval(grabFrame, 50);
 }
