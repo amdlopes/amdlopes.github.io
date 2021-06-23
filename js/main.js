@@ -90,7 +90,7 @@ function grabFrame() {
 
     const ctx_proc = canvas_proc.getContext('2d');
     createImageBitmap(imageData).then(img => {
-      ctx_proc.drawImage(img,0,0);
+      ctx_proc.drawImage(img,-canvas_proc.width/2,-canvas_proc.height/2,canvas_proc.width,canvas_proc.height);
     });
 
     // ctx_proc.putImageData(imageData, 0, 0);
@@ -113,7 +113,7 @@ function setTorch() {
 async function runStream() {
   await startCamera();
   const ctx_proc = canvas_proc.getContext('2d');
-  ctx_proc.setTransform(-1,0,0,1,canvas_proc.width,0);
+  ctx_proc.translate(canvas_proc.width/2,canvas_proc.height/2);
   ctx_proc.rotate(Math.PI/2);
   setInterval(grabFrame, 50);
 }
