@@ -77,7 +77,7 @@ function grabFrame() {
   try{
     console.log('grabFrame() new image');
 
-    canvas_orig.getContext("2d").drawImage(video, 0, 0);
+    canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
 
     const ctx = canvas_orig.getContext('2d');
     const imageData = ctx.getImageData(0, 0, canvas_orig.width, canvas_orig.height);
@@ -92,7 +92,7 @@ function grabFrame() {
     // createImageBitmap(imageData).then(img => {
     //   ctx_proc.drawImage(img,-canvas_proc.height/2,-canvas_proc.width/2,canvas_proc.height,canvas_proc.width);
     // });
-    ctx_proc.putImageData(imageData, 0, 0);
+    ctx_proc.putImageData(imageData, 0, 0,0,0,canvas_proc.width,canvas_proc.height);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
