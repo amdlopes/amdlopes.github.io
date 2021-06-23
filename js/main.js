@@ -66,11 +66,7 @@ function gotStream(stream) {
   video.srcObject = stream;
   videoTrack = stream.getVideoTracks()[0];
   const videoSettings = stream.getVideoTracks()[0].getSettings();
-  canvas_orig.width = videoSettings.width;
-  canvas_orig.height = videoSettings.height;
-  console.log('gotStream() width: ', canvas_orig.width);
-  console.log('gotStream() height: ', canvas_orig.height);
-  document.getElementById('log').textContent += 'gotStream() resolution: '+ canvas_orig.width + ',' + canvas_orig.height;
+  document.getElementById('log').textContent += 'gotStream() resolution: '+ videoSettings.width + ',' + videoSettings.height;
 }
 
 function grabFrame() {
