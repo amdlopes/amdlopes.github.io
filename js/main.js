@@ -94,5 +94,5 @@ function setTorch() {
 
 async function runStream() {
   await startCamera();
-  setInterval(grabFrame, 100);
+  setInterval(grabFrame, 50);
 }
