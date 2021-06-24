@@ -66,16 +66,16 @@ function gotStream(stream) {
   videoTrack = stream.getVideoTracks()[0];
   const videoSettings = stream.getVideoTracks()[0].getSettings();
   document.getElementById('log').textContent += 'gotStream() resolution: '+ videoSettings.width + ',' + videoSettings.height;
-  canvas_orig.width = window.innerWidth;
-  canvas_orig.height = window.innerHeight;
+  // canvas_orig.width = window.innerWidth;
+  // canvas_orig.height = window.innerHeight;
 }
 
 function grabFrame() {
   try{
     console.log('grabFrame() new image');
 
-    // canvas_orig.getContext("2d").drawImage(video, 0, 0,canvas_orig.width,canvas_orig.height);
-    canvas_orig.getContext("2d").drawImage(video,0,0,canvas_orig.width,canvas_orig.height);
+    canvas_orig.getContext("2d").drawImage(video, 0, 0);
+    // canvas_orig.getContext("2d").drawImage(video,0,0,canvas_orig.width,canvas_orig.height);
 
   } catch(error) {
     console.log('grabFrame() error: ', error);
